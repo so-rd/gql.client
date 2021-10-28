@@ -5,6 +5,7 @@ on:
       - main
       - develop
   pull_request
+  
 jobs:
   all-cli-check:
     runs-on: ubuntu-latest
@@ -16,7 +17,7 @@ jobs:
       - run: mv .env.example .env
       - run: npm ci
       - run: npm run build
-      # - run: npm test:jest
-      # - run: npm run lint
-      # - run: npm run check-format
-      # - run: npm run check-types
+      - run: npm test:jest
+      - run: npm run lint
+      - run: npm run check-format
+      - run: npm run check-types
