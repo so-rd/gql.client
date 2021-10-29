@@ -1,0 +1,38 @@
+name: ci
+'on':
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+jobs:
+  all-cli-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: '14.18'
+      - run: mv .env.example .env
+      - run: npm ci
+      - run: npm run check-types
+      - run: npm run format
+      - run: npm run check-format
+      - run: npm run lint
+      - run: npm run test:jest
+      - run: npm run build
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: '14.18'
+      - run: mv .env.example .env
+      - uses: cypress-io/github-action@v2
+        with:
+          build: npm run build
+          start: npm run serve
