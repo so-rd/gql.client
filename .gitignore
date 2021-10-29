@@ -1,5 +1,10 @@
 node_modules
+package-lock.json
 .DS_Store
+build
 dist
 dist-ssr
 *.local
+coverage
+cypress/videos
+cypress/screenshots

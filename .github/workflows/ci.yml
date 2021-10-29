@@ -1,5 +1,5 @@
-name: CI
-on:
+name: ci
+"on":
   push:
     branches:
       - main
@@ -16,8 +16,8 @@ jobs:
           node-version: '14.18'
       - run: mv .env.example .env
       - run: npm ci
+      - run: npm run check-types
       - run: npm run build
+      - run: npm run check-format
       - run: npm test:jest
       - run: npm run lint
-      - run: npm run check-format
-      - run: npm run check-types
