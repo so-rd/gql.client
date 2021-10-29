@@ -19,10 +19,11 @@ jobs:
       - run: mv .env.example .env
       - run: npm ci
       - run: npm run check-types
-      - run: npm run build
+      - run: npm run format
       - run: npm run check-format
-      - run: npm test:jest
       - run: npm run lint
+      - run: npm test:jest
+      - run: npm run build
   cypress-run:
     runs-on: ubuntu-latest
     steps:
