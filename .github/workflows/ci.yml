@@ -23,3 +23,15 @@ jobs:
       - run: npm run check-format
       - run: npm test:jest
       - run: npm run lint
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: '14.18'
+      - run: mv .env.example .env
+      - uses: cypress-io/github-action@v2
+        with:
+          build: npm run build
+          start: npm run serve
