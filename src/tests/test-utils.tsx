@@ -10,10 +10,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { useForm, FormProvider } from 'react-hook-form';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-// @mui dependencies
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-
 // @mantine/notifications dependencies
 import { NotificationsProvider } from '@mantine/notifications';
 
@@ -52,15 +48,13 @@ const render = async (ui: any, defaultFormValues?: any) => {
     });
     return (
       <QueryClientProvider client={queryClient}>
-        <LocalizationProvider dateAdapter={AdapterDateFns as any}>
-          <NotificationsProvider>
-            <AuthProvider>
-              <Router>
-                <FormProvider {...methods}>{children}</FormProvider>
-              </Router>
-            </AuthProvider>
-          </NotificationsProvider>
-        </LocalizationProvider>
+        <NotificationsProvider>
+          <AuthProvider>
+            <Router>
+              <FormProvider {...methods}>{children}</FormProvider>
+            </Router>
+          </AuthProvider>
+        </NotificationsProvider>
       </QueryClientProvider>
     );
   };
