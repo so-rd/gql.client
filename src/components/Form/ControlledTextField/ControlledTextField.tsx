@@ -18,12 +18,12 @@ export const ControlledTextField = (props: TextFieldProps) => {
       control={control}
       render={({ field }) => (
         <TextInput
-          {...props}
           className={className}
           id={name}
           size="sm"
           variant="default"
           error={error?.message}
+          {...props}
           {...field}
         />
       )}

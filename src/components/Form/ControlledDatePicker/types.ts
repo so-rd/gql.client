@@ -1,4 +1,5 @@
 import type { FieldError } from 'react-hook-form';
+import { DatePickerProps } from '@mantine/dates';
 
 export type ControlledDatePickerProps = {
   className?: string;
@@ -6,6 +7,5 @@ export type ControlledDatePickerProps = {
   label: string;
   defaultValue?: string | Date | null;
   disabled?: boolean;
-  required?: boolean;
   error?: FieldError | undefined;
-};
+} & DatePickerProps;

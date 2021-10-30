@@ -18,12 +18,12 @@ export const ControlledPasswordField = (props: PasswordFieldProps) => {
       control={control}
       render={({ field }) => (
         <PasswordInput
-          {...props}
           className={className}
           id={name}
           size="sm"
           variant="default"
           error={error?.message}
+          {...props}
           {...field}
         />
       )}

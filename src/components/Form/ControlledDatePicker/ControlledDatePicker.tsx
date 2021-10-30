@@ -1,21 +1,13 @@
 import { Controller, useFormContext } from 'react-hook-form';
 
-// @mui dependencies
-import TextField from '@mui/material/TextField';
-import DatePicker from '@mui/lab/DatePicker';
+// @mantine/dates dependencies
+import { DatePicker } from '@mantine/dates';
 
 // Local dependencies
 import type { ControlledDatePickerProps } from './types';
 
 export const ControlledDatePicker = (props: ControlledDatePickerProps) => {
-  const {
-    className = '',
-    name,
-    label,
-    disabled = false,
-    required = false,
-    error,
-  } = props;
+  const { name, error } = props;
 
   /* react-hook-form */
   const { control } = useFormContext();
@@ -26,25 +18,11 @@ export const ControlledDatePicker = (props: ControlledDatePickerProps) => {
       control={control}
       render={({ field: { ref, ...rest } }) => (
         <DatePicker
-          {...rest}
-          aria-label={`${name} holiday select`}
+          error={error?.message}
+          variant="default"
           inputFormat="MM/dd/yyyy"
-          InputAdornmentProps={{ position: 'start' }}
-          disabled={disabled}
-          renderInput={(renderInputProps) => (
-            <TextField
-              {...renderInputProps}
-              className={className}
-              size="small"
-              label={label}
-              id={name}
-              disabled={disabled}
-              required={required}
-              error={!!error}
-              helperText={error?.message ? error?.message : null}
-              fullWidth
-            />
-          )}
+          {...props}
+          {...rest}
         />
       )}
     />

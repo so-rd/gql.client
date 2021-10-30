@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
-// @mui dependencies
+// @mantine/core dependencies
+import { Button } from '@mantine/core';
 
 // local dependencies
 import { Form, ControlledTextField } from 'src/components/Form';
@@ -37,30 +38,39 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
           <>
             <ControlledTextField
               name="firstName"
-              label="First Name"
+              label="First name"
+              required
               error={formState.errors.firstName}
             />
             <ControlledTextField
               name="lastName"
-              label="Last Name"
+              label="Last name"
+              required
               error={formState.errors.lastName}
             />
             <ControlledTextField
               name="email"
               type="email"
-              label="Email Address"
+              label="Email address"
+              required
               error={formState.errors.email}
             />
             <ControlledTextField
               name="password"
               type="password"
               label="Password"
+              required
               error={formState.errors.password}
             />
 
-            <button disabled={isRegistering} type="submit" className="w-full">
+            <Button
+              type="submit"
+              className="w-full mt-3"
+              variant="outline"
+              disabled={isRegistering}
+            >
               Register
-            </button>
+            </Button>
           </>
         )}
       </Form>

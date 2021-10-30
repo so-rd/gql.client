@@ -1,4 +1,5 @@
 import type { FieldError } from 'react-hook-form';
+import type { CheckboxProps } from '@mantine/core';
 
 export type ControlledCheckboxProps = {
   name: string;
@@ -6,4 +7,4 @@ export type ControlledCheckboxProps = {
   disabled?: boolean;
   required?: boolean;
   error?: FieldError | undefined;
-};
+} & CheckboxProps;

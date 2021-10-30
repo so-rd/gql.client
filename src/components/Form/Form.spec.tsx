@@ -1,8 +1,8 @@
 import userEvent from '@testing-library/user-event';
 import { z } from 'zod';
 
-// @mui dependencies
-import Button from '@mui/material/Button';
+// @mantine/core dependencies
+import { Button } from '@mantine/core';
 
 // local dependencies
 import { render, waitFor } from 'src/tests/test-utils';
