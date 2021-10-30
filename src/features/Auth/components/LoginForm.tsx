@@ -1,7 +1,12 @@
+import { Button } from '@mantine/core';
 import { Link } from 'react-router-dom';
 
 // local dependencies
-import { Form, ControlledTextField } from 'src/components/Form';
+import {
+  Form,
+  ControlledPasswordField,
+  ControlledTextField,
+} from 'src/components/Form';
 import { useAuth } from 'src/lib/auth';
 import { loginFormSchema } from '../schemas/loginFormSchema';
 import type { LoginFormValues } from '../types/LoginFormValues';
@@ -33,19 +38,26 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
             <ControlledTextField
               name="email"
               type="email"
-              label="Email Address"
+              label="Email address"
+              required
               error={formState.errors.email}
             />
-            <ControlledTextField
+            <ControlledPasswordField
               name="password"
               type="password"
               label="Password"
+              required
               error={formState.errors.password}
             />
             <div>
-              <button disabled={isLoggingIn} type="submit" className="w-full">
+              <Button
+                type="submit"
+                className="w-full mt-3"
+                variant="outline"
+                disabled={isLoggingIn}
+              >
                 Log in
-              </button>
+              </Button>
             </div>
           </>
         )}

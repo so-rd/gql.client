@@ -33,6 +33,7 @@ async function loginFn(data: LoginCredentialsDTO) {
 
 async function registerFn(data: RegisterCredentialsDTO) {
   const response = await registerWithEmailAndPassword(data);
+  console.log(`registerFn response :>>`, response);
   const user = await handleUserResponse(response);
   return user;
 }
