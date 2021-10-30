@@ -3,13 +3,10 @@ import { Controller, useFormContext } from 'react-hook-form';
 // @mantine/core dependencies
 import { PasswordInput } from '@mantine/core';
 
-// @mui/material dependencies
-import MUITextField from '@mui/material/TextField';
-
 // Local dependencies
-import type { TextFieldProps } from './types';
+import type { PasswordFieldProps } from './types';
 
-export const ControlledPasswordField = (props: TextFieldProps) => {
+export const ControlledPasswordField = (props: PasswordFieldProps) => {
   const { className = '', error, name } = props;
 
   /* react-hook-form */
@@ -25,6 +22,7 @@ export const ControlledPasswordField = (props: TextFieldProps) => {
           className={className}
           id={name}
           size="sm"
+          variant="default"
           error={error?.message}
           {...field}
         />

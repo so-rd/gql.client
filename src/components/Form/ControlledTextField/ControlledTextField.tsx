@@ -22,6 +22,7 @@ export const ControlledTextField = (props: TextFieldProps) => {
           className={className}
           id={name}
           size="sm"
+          variant="default"
           error={error?.message}
           {...field}
         />
