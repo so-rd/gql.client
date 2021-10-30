@@ -1,14 +1,13 @@
 import { Controller, useFormContext } from 'react-hook-form';
 
-// @mui/material dependencies
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+// @mantine/core dependencies
+import { Checkbox } from '@mantine/core';
 
 // Local dependencies
 import type { ControlledCheckboxProps } from './types';
 
 export const ControlledCheckbox = (props: ControlledCheckboxProps) => {
-  const { name, label, disabled = false, required = false } = props;
+  const { error, name } = props;
 
   /* react-hook-form */
   const { control } = useFormContext();
@@ -18,18 +17,7 @@ export const ControlledCheckbox = (props: ControlledCheckboxProps) => {
       name={name}
       control={control}
       render={({ field }) => (
-        <FormControlLabel
-          control={
-            <Checkbox
-              id={name}
-              required={required}
-              checked={field.value}
-              {...field}
-            />
-          }
-          disabled={disabled}
-          label={label}
-        />
+        <Checkbox error={error?.message} {...props} {...field} />
       )}
     />
   );

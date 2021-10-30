@@ -1,14 +1,13 @@
 import { Controller, useFormContext } from 'react-hook-form';
-import cuid from 'cuid';
 
-// @mui/material dependencies
-import { NativeSelect } from '@mantine/core';
+// @mantine/core dependencies
+import { PasswordInput } from '@mantine/core';
 
 // Local dependencies
-import type { DropdownProps } from './types';
+import type { PasswordFieldProps } from './types';
 
-export const ControlledDropdown = (props: DropdownProps) => {
-  const { name, className, error } = props;
+export const ControlledPasswordField = (props: PasswordFieldProps) => {
+  const { className = '', error, name } = props;
 
   /* react-hook-form */
   const { control } = useFormContext();
@@ -18,7 +17,7 @@ export const ControlledDropdown = (props: DropdownProps) => {
       name={name}
       control={control}
       render={({ field }) => (
-        <NativeSelect
+        <PasswordInput
           className={className}
           id={name}
           size="sm"

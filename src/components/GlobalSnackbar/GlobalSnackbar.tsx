@@ -9,6 +9,7 @@ import { snackbarState } from './snackbarState';
 
 export const GlobalSnackbar = () => {
   const [state] = useAtom(snackbarState);
+
   const notifications = useNotifications();
 
   useEffect(() => {

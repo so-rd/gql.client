@@ -43,7 +43,7 @@ export const Form = <
   return (
     <FormProvider {...methods}>
       <form
-        className={clsx('space-y-6', className)}
+        className={clsx('space-y-4', className)}
         onSubmit={methods.handleSubmit(onSubmit)}
         id={id}
       >

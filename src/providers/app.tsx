@@ -6,16 +6,16 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 // @mantine/core dependencies
 import {
+  // components
+  Button,
+  Loader,
+  // providers
   MantineProvider,
   ColorSchemeProvider,
   ColorScheme,
   GlobalStyles,
 } from '@mantine/core';
 import { NotificationsProvider } from '@mantine/notifications';
-
-// @mui dependencies
-import Button from '@mui/material/Button';
-import LinearProgress from '@mui/material/LinearProgress';
 
 // local dependencies
 import { AuthProvider } from 'src/lib/auth';
@@ -31,6 +31,7 @@ const ErrorFallback = () => {
       <h2 className="text-lg font-semibold">Ooops, something went wrong :( </h2>
       <Button
         className="mt-4"
+        variant="outline"
         onClick={() => window.location.assign(window.location.origin)}
       >
         Refresh
@@ -48,16 +49,33 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
   return (
-    <Suspense
-      fallback={<LinearProgress color="secondary" data-testid="loading" />}
-    >
+    <Suspense fallback={<Loader />}>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <QueryClientProvider client={queryClient}>
           <ColorSchemeProvider
             colorScheme={colorScheme}
             toggleColorScheme={toggleColorScheme}
           >
-            <MantineProvider theme={{ colorScheme }}>
+            <MantineProvider
+              theme={{
+                colorScheme,
+                colors: {
+                  // override dark colors here to change them for all components
+                  // dark: [
+                  //   '#d5d7e0',
+                  //   '#acaebf',
+                  //   '#8c8fa3',
+                  //   '#666980',
+                  //   '#4d4f66',
+                  //   '#34354a',
+                  //   '#2b2c3d',
+                  //   '#1d1e30',
+                  //   '#0c0d21',
+                  //   '#01010a',
+                  // ],
+                },
+              }}
+            >
               <NotificationsProvider>
                 <GlobalStyles />
                 <GlobalSnackbar />
