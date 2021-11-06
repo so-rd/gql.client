@@ -1,16 +1,34 @@
 // local dependencies
 import { axios } from 'src/lib/app-axios';
 import type { UserResponse } from '../types/UserResponse';
+import type { RegisterMutationVariables } from '../types/RegisterMutationVariables';
 
-export type RegisterCredentialsDTO = {
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-};
+const UserFieldsFragmentDoc = `
+  fragment UserFields on User {
+    _id
+    email
+    firstName
+    lastName
+    bio
+    role
+    dateCreated
+    dateUpdated
+  }
+`;
+const query = `
+  mutation register($registerInput: RegisterInput!) {
+    register(registerInput: $registerInput) {
+      user {
+        ...UserFields
+      }
+      jwt
+    }
+  }
+  ${UserFieldsFragmentDoc}
+`;
 
 export const registerWithEmailAndPassword = (
-  data: RegisterCredentialsDTO,
-): Promise<UserResponse> => {
-  return axios.post('/auth/register', data);
+  variables: RegisterMutationVariables,
+): Promise<{ register: UserResponse }> => {
+  return axios.post('/graphql', { query, variables });
 };

@@ -4,10 +4,14 @@ import { Link } from 'react-router-dom';
 import { Button } from '@mantine/core';
 
 // local dependencies
-import { Form, ControlledTextField } from 'src/components/Form';
+import {
+  Form,
+  ControlledTextField,
+  ControlledPasswordField,
+} from 'src/components/Form';
 import { useAuth } from 'src/lib/auth';
 import { registerFormSchema } from '../schemas/registerFormSchema';
-import type { RegisterFormValues } from '../types/RegisterFormValues';
+import type { RegisterInput } from '../types/RegisterInput';
 
 type RegisterFormProps = {
   onSuccess: () => void;
@@ -18,7 +22,7 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
 
   return (
     <div>
-      <Form<RegisterFormValues, typeof registerFormSchema>
+      <Form<RegisterInput, typeof registerFormSchema>
         onSubmit={async (values) => {
           await register(values);
           onSuccess();
@@ -55,7 +59,7 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
               required
               error={formState.errors.email}
             />
-            <ControlledTextField
+            <ControlledPasswordField
               name="password"
               type="password"
               label="Password"

@@ -6,8 +6,9 @@ import {
   registerWithEmailAndPassword,
   UserResponse,
   LoginCredentialsDTO,
-  RegisterCredentialsDTO,
+  RegisterInput,
   AuthUser,
+  LoginInput,
 } from 'src/features/Auth';
 import storage from 'src/common/storage';
 
@@ -19,22 +20,23 @@ async function handleUserResponse(data: UserResponse) {
 
 async function loadUser() {
   if (storage.getToken()) {
-    const data = await getUser();
-    return data;
+    const { me } = await getUser();
+    return me;
   }
   return null;
 }
 
-async function loginFn(data: LoginCredentialsDTO) {
-  const response = await loginWithEmailAndPassword(data);
-  const user = await handleUserResponse(response);
+async function loginFn(variables: LoginInput) {
+  const { login } = await loginWithEmailAndPassword({ loginInput: variables });
+  const user = await handleUserResponse(login);
   return user;
 }
 
-async function registerFn(data: RegisterCredentialsDTO) {
-  const response = await registerWithEmailAndPassword(data);
-  console.log(`registerFn response :>>`, response);
-  const user = await handleUserResponse(response);
+async function registerFn(variables: RegisterInput) {
+  const { register } = await registerWithEmailAndPassword({
+    registerInput: variables,
+  });
+  const user = await handleUserResponse(register);
   return user;
 }
 
@@ -57,5 +59,5 @@ export const { AuthProvider, useAuth } = initReactQueryAuth<
   AuthUser | null,
   unknown,
   LoginCredentialsDTO,
-  RegisterCredentialsDTO
+  RegisterInput
 >(authConfig);

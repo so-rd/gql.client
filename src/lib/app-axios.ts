@@ -4,7 +4,6 @@ import Axios, { AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
 import { API_URL } from 'src/config/API_URL';
 import storage from 'src/common/storage';
 import { snackbarStore } from 'src/components/GlobalSnackbar/snackbarState';
-import { Cross1Icon } from '@modulz/radix-icons';
 
 function authRequestInterceptor(config: AxiosRequestConfig) {
   const token = storage.getToken();
@@ -23,12 +22,26 @@ export const axios = Axios.create({
 
 axios.interceptors.request.use(authRequestInterceptor);
 axios.interceptors.response.use(
-  (response) => {
-    return response.data;
+  ({ data: { data, errors } }) => {
+    if (errors) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      errors.forEach(({ message, extensions: { code } }) => {
+        snackbarStore.setState({
+          color: 'red',
+          title: code,
+          message,
+          autoClose: 7500,
+        });
+      });
+
+      return Promise.reject(errors);
+    }
+    return data;
   },
   (error) => {
     const title = error.response?.data?.title || error.message;
-    const message = error.response?.data?.message || error.message;
+    const message = error.response?.data?.errors[0].message || error.message;
 
     snackbarStore.setState({
       color: 'red',
